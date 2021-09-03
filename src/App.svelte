@@ -1,10 +1,29 @@
 <script lang="ts">
-	export let name: string;
+
+	import Login from "./popups/Login.svelte"
+
+	export let thingyTitle : string
+	type CurrentPopup = 'login' | undefined
+	let currentPopup : CurrentPopup
+	console.log('fosfd')
+	function setPopup(type : CurrentPopup) {
+		return function() {
+			currentPopup = type
+		}
+	}
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<h1>{thingyTitle}</h1>
+	<p>
+		<button on:click={setPopup('login')}>Login</button>
+		or view
+		<a href="https://svelte.dev/tutorial">things</a>.
+		<br>// searchbar?
+		{#if currentPopup === 'login'}
+			<Login on:exit={setPopup(undefined)}/>
+		{/if}
+	</p>
 </main>
 
 <style>
