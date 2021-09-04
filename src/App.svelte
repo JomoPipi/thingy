@@ -1,11 +1,11 @@
 <script lang="ts">
-
+	import { CONSTANTS } from "./constants"
 	import Login from "./popups/Login.svelte"
 
 	export let thingyTitle : string
 	type CurrentPopup = 'login' | undefined
 	let currentPopup : CurrentPopup
-	console.log('fosfd')
+	console.log('fosfd', CONSTANTS.noop())
 	function setPopup(type : CurrentPopup) {
 		return function() {
 			currentPopup = type

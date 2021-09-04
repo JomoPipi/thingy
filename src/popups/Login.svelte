@@ -1,32 +1,45 @@
 <script lang="ts">
+	import { fade } from 'svelte/transition'
+	export let visible = true
     import { createEventDispatcher } from 'svelte'
+    // export let opacity : number
+    // opacity = 0
     const dispatch = createEventDispatcher()
-    function closeWindow() { dispatch('exit') }
+    // let container : HTMLDivElement
+    function closeWindow(e : Event) { 
+        // container.style.opacity = opacity.toString()
+        // container.style.pointerEvents = 'none'
+        if (e.target !== this) return;
+        dispatch('exit') 
+    }
 </script>
 
-<div class="main">
-    <button on:click={closeWindow}>x</button>
-    <div class="login-page">
-        <div class="form">
-          <form class="login-form">
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-            <button>login</button>
-            <p class="message">Not registered? <a href="google.com">Create an account</a></p>
-          </form>
+{#if visible}
+    <div class="main" on:click={closeWindow} transition:fade>
+        <div class="login-page">
+            <div class="form">
+            <form class="login-form">
+                <input type="text" placeholder="username"/>
+                <input type="password" placeholder="password"/>
+                <button>login</button>
+                <p class="message">Not registered? <a href="google.com">Create an account</a></p>
+            </form>
+            </div>
         </div>
-    </div>
-</div>
+    </div>    
+{/if}
 
 <style>
     .main { 
         position: absolute;
-        top: 5%;
-        right: 5%;
-        left: 5%;
-        bottom: 5%;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
         border-radius: 1rem;
-        background: white;
+        background: rgba(0,0,0,0.25);
         /* border: 2px solid blue; */
     }
     @import url(https://fonts.googleapis.com/css?family=Roboto:300);
@@ -42,7 +55,8 @@
     background: #FFFFFF;
     max-width: 360px;
     margin: 0 auto 100px;
-    padding: 45px;
+    /* padding: 45px; */
+    padding: 45px 9px;
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
     }
@@ -83,50 +97,8 @@
     color: #4CAF50;
     text-decoration: none;
     }
-    .form .register-form {
-    display: none;
-    }
-    .container {
-    position: relative;
-    z-index: 1;
-    max-width: 300px;
-    margin: 0 auto;
-    }
-    .container:before, .container:after {
-    content: "";
-    display: block;
-    clear: both;
-    }
-    .container .info {
-    margin: 50px auto;
-    text-align: center;
-    }
-    .container .info h1 {
-    margin: 0 0 15px;
-    padding: 0;
-    font-size: 36px;
-    font-weight: 300;
-    color: #1a1a1a;
-    }
-    .container .info span {
-    color: #4d4d4d;
-    font-size: 12px;
-    }
-    .container .info span a {
-    color: #000000;
-    text-decoration: none;
-    }
-    .container .info span .fa {
-    color: #EF3B3A;
-    }
-    body {
-    background: #76b852; /* fallback for old browsers */
-    background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-    background: -moz-linear-gradient(right, #76b852, #8DC26F);
-    background: -o-linear-gradient(right, #76b852, #8DC26F);
-    background: linear-gradient(to left, #76b852, #8DC26F);
-    font-family: "Roboto", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;      
-    }
+    /* .login-form { 
+        border: 2px solid red;
+    } */
+    
 </style>
