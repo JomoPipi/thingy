@@ -15,7 +15,7 @@
 </script>
 
 {#if visible}
-    <div class="main" on:click={closeWindow} transition:fade>
+    <div class="main" on:click={closeWindow} transition:fade={{ duration: 0.5 }}>
         <div class="login-page">
             <div class="form">
             <form class="login-form">
